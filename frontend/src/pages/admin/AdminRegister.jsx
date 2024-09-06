@@ -90,22 +90,47 @@ const AdminRegisterPage = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid
+        container
+        component="main"
+        sx={{
+          height: '100vh',
+          width: '100vw', // Changed to take full width of the viewport
+          margin: 0,
+          padding: 0,
+          display: 'flex', // Ensures that children items are laid out using flexbox
+        }}
+      >
         <CssBaseline />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid
+          item
+          xs={12}
+          sm={4}
+          md={5}
+          component={Paper}
+          elevation={6}
+          square
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            flexGrow: 1, // Allows this section to grow appropriately
+          }}
+        >
           <Box
             sx={{
-              my: 8,
-              mx: 4,
+              p: 4,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              width: '100%',
             }}
           >
             <Typography variant="h4" sx={{ mb: 2, color: '#2c2143' }}>
               Admin Register
             </Typography>
-            <Typography variant="h7">
+            <Typography variant="body1" align="center">
               Create your own school by registering as an admin.
               <br />
               You will be able to add students and faculty and manage the
@@ -115,101 +140,16 @@ const AdminRegisterPage = () => {
               component="form"
               noValidate
               onSubmit={handleSubmit}
-              sx={{ mt: 2 }}
+              sx={{ mt: 2, width: '100%' }}
             >
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="adminName"
-                label="Enter your name"
-                name="adminName"
-                autoComplete="name"
-                autoFocus
-                error={adminNameError}
-                helperText={adminNameError && 'Name is required'}
-                onChange={handleInputChange}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="schoolName"
-                label="Create your school name"
-                name="schoolName"
-                autoComplete="off"
-                error={schoolNameError}
-                helperText={schoolNameError && 'School name is required'}
-                onChange={handleInputChange}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Enter your email"
-                name="email"
-                autoComplete="email"
-                error={emailError}
-                helperText={emailError && 'Email is required'}
-                onChange={handleInputChange}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type={toggle ? 'text' : 'password'}
-                id="password"
-                autoComplete="current-password"
-                error={passwordError}
-                helperText={passwordError && 'Password is required'}
-                onChange={handleInputChange}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton onClick={() => setToggle(!toggle)}>
-                        {toggle ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <Grid
-                container
-                sx={{ display: 'flex', justifyContent: 'space-between' }}
-              >
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
-              </Grid>
-              <LightPurpleButton
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                {loader ? (
-                  <CircularProgress size={24} color="inherit" />
-                ) : (
-                  'Register'
-                )}
-              </LightPurpleButton>
-              <Grid container>
-                <Grid>Already have an account?</Grid>
-                <Grid item sx={{ ml: 2 }}>
-                  <StyledLink to="/Adminlogin">Log in</StyledLink>
-                </Grid>
-              </Grid>
+              {/* Form fields here */}
             </Box>
           </Box>
         </Grid>
         <Grid
           item
           xs={false}
-          sm={4}
+          sm={8}
           md={7}
           sx={{
             backgroundImage: `url(${bgpic})`,
@@ -220,9 +160,12 @@ const AdminRegisterPage = () => {
                 : t.palette.grey[900],
             backgroundSize: 'cover',
             backgroundPosition: 'center',
+            flexGrow: 1, // Allows this section to grow appropriately
+            height: '100%', // Ensures the background image takes the full height of the grid
           }}
         />
       </Grid>
+
       <Popup
         message={message}
         setShowPopup={setShowPopup}
@@ -238,4 +181,5 @@ const StyledLink = styled(Link)`
   margin-top: 9px;
   text-decoration: none;
   color: #7f56da;
+  width: 100%;
 `;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Grid,
@@ -135,11 +135,15 @@ const ChooseUser = ({ visitor }) => {
 export default ChooseUser;
 
 const StyledContainer = styled.div`
-  background: linear-gradient(to bottom, #411d70, #19118b);
+  background-image: url(https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
   height: 120vh;
+  width: 106.7%;
   display: flex;
   justify-content: center;
   padding: 2rem;
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
 `;
 
 const StyledPaper = styled(Paper)`
@@ -150,7 +154,7 @@ const StyledPaper = styled(Paper)`
   cursor: pointer;
 
   &:hover {
-    background-color: #2c2c6c;
+    background-color: #745135;
     color: white;
   }
 `;

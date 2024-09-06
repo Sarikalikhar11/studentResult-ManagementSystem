@@ -1,8 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Grid, Box, Button } from '@mui/material';
 import styled from 'styled-components';
-import Students from '../assets/students.svg';
+import Students from '../assets/students.png';
 import { LightPurpleButton } from '../components/buttonStyles';
 
 const Homepage = () => {
@@ -40,8 +39,9 @@ const Homepage = () => {
                   sx={{
                     mt: 2,
                     mb: 3,
-                    color: '#7f56da',
-                    borderColor: '#7f56da',
+                    color: '#d85952',
+                    borderColor: '#d85952',
+                    hover: '#d6140a',
                   }}
                 >
                   Login as Guest
@@ -49,7 +49,7 @@ const Homepage = () => {
               </StyledLink>
               <StyledText>
                 Don't have an account?{' '}
-                <Link to="/Adminregister" style={{ color: '#550080' }}>
+                <Link to="/Adminregister" style={{ color: '#d85952' }}>
                   Sign up
                 </Link>
               </StyledText>
