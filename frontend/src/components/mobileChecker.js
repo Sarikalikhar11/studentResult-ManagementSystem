@@ -1,7 +1,3 @@
-import { SpeedDial } from '@mui/material';
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-
 const [isMobile, setIsMobile] = useState(false);
 
 useEffect(() => {

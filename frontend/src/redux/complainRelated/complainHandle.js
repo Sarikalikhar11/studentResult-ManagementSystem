@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getRequest, getSuccess, getFailed, getError } from './complainSlice';
-import { REACT_APP_BASE_URL } from '../../utils/constant';
+import { REACT_APP_BASE_URL } from './../../utils/constant';
 
 export const getAllComplains = (id, address) => async (dispatch) => {
   dispatch(getRequest());
