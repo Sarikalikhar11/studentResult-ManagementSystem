@@ -53,7 +53,7 @@ const AdminDashboard = () => {
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar open={open} position="absolute">
-          <Toolbar sx={{ pr: '24px' }}>
+          <Toolbar sx={{ pr: '24px' }} className="bg-[#df5f5a]">
             <IconButton
               edge="start"
               color="inherit"
@@ -81,7 +81,7 @@ const AdminDashboard = () => {
         <Drawer
           variant="permanent"
           open={open}
-          sx={open ? styles.drawerStyled : styles.hideDrawer}
+          sx={open ? styles.drawerStyled : styles.hideDrawer }
         >
           <Toolbar sx={styles.toolBarStyled}>
             <IconButton onClick={toggleDrawer}>

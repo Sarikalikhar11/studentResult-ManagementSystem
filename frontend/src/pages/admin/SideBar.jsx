@@ -26,9 +26,10 @@ const SideBar = () => {
         <ListItemButton component={Link} to="/">
           <ListItemIcon>
             <HomeIcon
+              style={{ color: '#d6140a' }}
               color={
                 location.pathname === ('/' || '/Admin/dashboard')
-                  ? 'primary'
+                  ? '#d6140a'
                   : 'inherit'
               }
             />
