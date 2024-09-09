@@ -3,27 +3,17 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Grid,
-  Box,
-  Typography,
-  Paper,
   Checkbox,
   FormControlLabel,
   TextField,
-  CssBaseline,
   IconButton,
   InputAdornment,
   CircularProgress,
 } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import bgpic from '../../assets/designlogin.jpg';
-import { LightPurpleButton } from '../../components/buttonStyles';
 import { registerUser } from '../../redux/userRelated/userHandle';
-import styled from 'styled-components';
 import Popup from '../../components/Popup';
-
-const defaultTheme = createTheme();
 
 const AdminRegisterPage = () => {
   const dispatch = useDispatch();
@@ -89,97 +79,121 @@ const AdminRegisterPage = () => {
   }, [status, currentUser, currentRole, navigate, error, response]);
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Grid
-        container
-        component="main"
-        sx={{
-          height: '100vh',
-          width: '100vw', // Changed to take full width of the viewport
-          margin: 0,
-          padding: 0,
-          display: 'flex', // Ensures that children items are laid out using flexbox
-        }}
-      >
-        <CssBaseline />
-        <Grid
-          item
-          xs={12}
-          sm={4}
-          md={5}
-          component={Paper}
-          elevation={6}
-          square
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-            flexGrow: 1, // Allows this section to grow appropriately
-          }}
-        >
-          <Box
-            sx={{
-              p: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              width: '100%',
-            }}
-          >
-            <Typography variant="h4" sx={{ mb: 2, color: '#2c2143' }}>
-              Admin Register
-            </Typography>
-            <Typography variant="body1" align="center">
-              Create your own school by registering as an admin.
-              <br />
-              You will be able to add students and faculty and manage the
-              system.
-            </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 2, width: '100%' }}
+    <div className="flex items-center justify-between max-h-screen max-w-full mx-auto">
+      {/* Left side: Form Section */}
+      <div className="lex max-w-full max-h-screen items-center justify-between bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+        <div className="max-w-md mx-auto w-full space-y-8 p-8 bg-white shadow-lg rounded-lg">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+            Admin Register
+          </h1>
+          <p className="text-sm text-center text-gray-600 mb-6">
+            Create your own school by registering as an admin.
+            <br />
+            You will be able to add students and faculty and manage the system.
+          </p>
+          <form className="space-y-4" onSubmit={handleSubmit} noValidate>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="adminName"
+              label="Enter your name"
+              name="adminName"
+              autoComplete="name"
+              autoFocus
+              error={adminNameError}
+              helperText={adminNameError && 'Name is required'}
+              onChange={handleInputChange}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="schoolName"
+              label="Create your school name"
+              name="schoolName"
+              autoComplete="off"
+              error={schoolNameError}
+              helperText={schoolNameError && 'School name is required'}
+              onChange={handleInputChange}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Enter your email"
+              name="email"
+              autoComplete="email"
+              error={emailError}
+              helperText={emailError && 'Email is required'}
+              onChange={handleInputChange}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type={toggle ? 'text' : 'password'}
+              id="password"
+              autoComplete="current-password"
+              error={passwordError}
+              helperText={passwordError && 'Password is required'}
+              onChange={handleInputChange}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => setToggle(!toggle)}>
+                      {toggle ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <div className="flex items-center justify-between">
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full text-white py-2 px-4 rounded  focus:outline-none focus:ring-2 focus:ring-purple-500 flex justify-center hover:bg-[#d6140a] bg-[#df5f5a]"
             >
-              {/* Form fields here */}
-            </Box>
-          </Box>
-        </Grid>
-        <Grid
-          item
-          xs={false}
-          sm={8}
-          md={7}
-          sx={{
-            backgroundImage: `url(${bgpic})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light'
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            flexGrow: 1, // Allows this section to grow appropriately
-            height: '100%', // Ensures the background image takes the full height of the grid
-          }}
-        />
-      </Grid>
+              {loader ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                'Register'
+              )}
+            </button>
+            <div className="flex items-center justify-center">
+              <p className="text-sm text-gray-600">Already have an account?</p>
+              <Link
+                to="/Adminlogin"
+                className="text-[#d6140a] hover:text-[#d6140a] hover:underline ml-2"
+              >
+                Log in
+              </Link>
+            </div>
+          </form>
+        </div>
+      </div>
 
+      {/* Right side: Image Section */}
+      <div
+        className="flex hidden md:flex bg-cover bg-center"
+        style={{ backgroundImage: `url(${bgpic})` }}
+      />
+
+      {/* Popup Component */}
       <Popup
         message={message}
         setShowPopup={setShowPopup}
         showPopup={showPopup}
       />
-    </ThemeProvider>
+    </div>
   );
 };
 
 export default AdminRegisterPage;
-
-const StyledLink = styled(Link)`
-  margin-top: 9px;
-  text-decoration: none;
-  color: #7f56da;
-  width: 100%;
-`;

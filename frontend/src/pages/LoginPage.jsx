@@ -6,25 +6,14 @@ import {
   Grid,
   Box,
   Typography,
-  Paper,
-  Checkbox,
-  FormControlLabel,
-  TextField,
-  CssBaseline,
-  IconButton,
-  InputAdornment,
   CircularProgress,
   Backdrop,
 } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import bgpic from '../assets/designlogin.jpg';
-import { LightPurpleButton } from '../components/buttonStyles';
-import styled from 'styled-components';
 import { loginUser } from '../redux/userRelated/userHandle';
 import Popup from '../components/Popup';
-
-const defaultTheme = createTheme();
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 const LoginPage = ({ role }) => {
   const dispatch = useDispatch();
@@ -90,18 +79,18 @@ const LoginPage = ({ role }) => {
     const password = 'zxc';
 
     if (role === 'Admin') {
-      const email = 'yogendra@12';
+      const email = 'sarika@12';
       const fields = { email, password };
       setGuestLoader(true);
       dispatch(loginUser(fields, role));
     } else if (role === 'Student') {
       const rollNum = '1';
-      const studentName = 'Dipesh Awasthi';
+      const studentName = 'Komal Khatik';
       const fields = { rollNum, studentName, password };
       setGuestLoader(true);
       dispatch(loginUser(fields, role));
     } else if (role === 'Teacher') {
-      const email = 'tony@12';
+      const email = 'pratu@12';
       const fields = { email, password };
       setGuestLoader(true);
       dispatch(loginUser(fields, role));
@@ -130,176 +119,153 @@ const LoginPage = ({ role }) => {
   }, [status, currentRole, navigate, error, response, currentUser]);
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <Box
-            sx={{
-              my: 8,
-              mx: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
+    <div className="flex items-center justify-between max-h-screen max-w-full mx-auto">
+      <div className="flex max-w-full max-h-screen items-center justify-between bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+        <div className="max-w-md mx-auto w-full space-y-8 p-8 bg-white shadow-lg rounded-lg">
+          <Typography
+            variant="h4"
+            className="text-2xl font-bold text-gray-800 mb-2"
           >
-            <Typography variant="h4" sx={{ mb: 2, color: '#2c2143' }}>
-              {role} Login
-            </Typography>
-            <Typography variant="h7">
-              Welcome back! Please enter your details
-            </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 2 }}
-            >
-              {role === 'Student' ? (
-                <>
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
+            {role} Login
+          </Typography>
+          <Typography variant="h7" className="text-gray-600">
+            Welcome back! Please enter your details
+          </Typography>
+          <form onSubmit={handleSubmit} className="space-y-4 mx-auto">
+            {role === 'Student' ? (
+              <>
+                <div className="relative">
+                  <input
                     id="rollNumber"
-                    label="Enter your Roll Number"
                     name="rollNumber"
-                    autoComplete="off"
                     type="number"
-                    autoFocus
-                    error={rollNumberError}
-                    helperText={rollNumberError && 'Roll Number is required'}
+                    placeholder="Enter your Roll Number"
+                    className={`block w-full px-3 py-2 border ${
+                      rollNumberError ? 'border-red-500' : 'border-gray-300'
+                    } rounded-md`}
                     onChange={handleInputChange}
                   />
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
+                  {rollNumberError && (
+                    <p className="text-red-500 text-sm">
+                      Roll Number is required
+                    </p>
+                  )}
+                </div>
+                <div className="relative">
+                  <input
                     id="studentName"
-                    label="Enter your name"
                     name="studentName"
-                    autoComplete="name"
-                    autoFocus
-                    error={studentNameError}
-                    helperText={studentNameError && 'Name is required'}
+                    type="text"
+                    placeholder="Enter your name"
+                    className={`block w-full px-3 py-2 border ${
+                      studentNameError ? 'border-red-500' : 'border-gray-300'
+                    } rounded-md`}
                     onChange={handleInputChange}
                   />
-                </>
-              ) : (
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
+                  {studentNameError && (
+                    <p className="text-red-500 text-sm">Name is required</p>
+                  )}
+                </div>
+              </>
+            ) : (
+              <div className="relative">
+                <input
                   id="email"
-                  label="Enter your email"
                   name="email"
-                  autoComplete="email"
-                  autoFocus
-                  error={emailError}
-                  helperText={emailError && 'Email is required'}
+                  type="email"
+                  placeholder="Enter your email"
+                  className={`block w-full px-3 py-2 border ${
+                    emailError ? 'border-red-500' : 'border-gray-300'
+                  } rounded-md`}
                   onChange={handleInputChange}
                 />
-              )}
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type={toggle ? 'text' : 'password'}
-                id="password"
-                autoComplete="current-password"
-                error={passwordError}
-                helperText={passwordError && 'Password is required'}
-                onChange={handleInputChange}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton onClick={() => setToggle(!toggle)}>
-                        {toggle ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-              <Grid
-                container
-                sx={{ display: 'flex', justifyContent: 'space-between' }}
-              >
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
-                <StyledLink href="#">Forgot password?</StyledLink>
-              </Grid>
-              <LightPurpleButton
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3 }}
-              >
-                {loader ? (
-                  <CircularProgress size={24} color="inherit" />
-                ) : (
-                  'Login'
+                {emailError && (
+                  <p className="text-red-500 text-sm">Email is required</p>
                 )}
-              </LightPurpleButton>
-              <Button
-                fullWidth
-                onClick={guestModeHandler}
-                variant="outlined"
-                sx={{ mt: 2, mb: 3, color: '#7f56da', borderColor: '#7f56da' }}
-              >
-                Login as Guest
-              </Button>
-              {role === 'Admin' && (
-                <Grid container>
-                  <Grid>Don't have an account?</Grid>
-                  <Grid item sx={{ ml: 2 }}>
-                    <StyledLink to="/Adminregister">Sign up</StyledLink>
-                  </Grid>
-                </Grid>
+              </div>
+            )}
+            <div className="relative">
+              <input
+                id="password"
+                name="password"
+                type={toggle ? 'text' : 'password'}
+                placeholder="Password"
+                className={`block w-full px-3 py-2 border ${
+                  passwordError ? 'border-red-500' : 'border-gray-300'
+                } rounded-md`}
+                onChange={handleInputChange}
+              />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                <button
+                  type="button"
+                  onClick={() => setToggle(!toggle)}
+                  className="text-gray-500 "
+                >
+                  {toggle ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                </button>
+              </div>
+              {passwordError && (
+                <p className="text-red-500 text-sm">Password is required</p>
               )}
-            </Box>
-          </Box>
-        </Grid>
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage: `url(${bgpic})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light'
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-      </Grid>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={guestLoader}
-      >
+            </div>
+            <div className="flex items-center justify-between">
+              <label className="flex items-center">
+                <input type="checkbox" className="form-checkbox" />
+                <span className="ml-2 text-gray-600">Remember me</span>
+              </label>
+              <Link
+                to="#"
+                className="text-[#d6140a] hover:underline hover:text-[#d6140a]"
+              >
+                Forgot password?
+              </Link>
+            </div>
+            <button
+              type="submit"
+              className="w-full py-2 px-4  text-white font-bold rounded-md flex items-center justify-center hover:bg-[#d6140a] bg-[#df5f5a]"
+            >
+              {loader ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                'Login'
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={guestModeHandler}
+              className="w-full py-2 px-4 border border-[#df5f5a] text-black font-bold rounded-md hover:bg-[#df5f5a]"
+            >
+              Login as Guest
+            </button>
+            {role === 'Admin' && (
+              <div className="flex items-center">
+                <p className="text-gray-600">Don't have an account?</p>
+                <Link
+                  to="/Adminregister"
+                  className="ml-2 text-[#d6140a] hover:underline hover:text-[#d6140a]"
+                >
+                  Sign up
+                </Link>
+              </div>
+            )}
+          </form>
+        </div>
+      </div>
+      <div
+        className="flex hidden md:flex bg-cover bg-center"
+        style={{ backgroundImage: `url(${bgpic})` }}
+      />
+      <Backdrop open={guestLoader} className="flex items-center justify-center">
         <CircularProgress color="primary" />
-        Please Wait
+        <span className="ml-2 text-white">Please Wait</span>
       </Backdrop>
       <Popup
         message={message}
         setShowPopup={setShowPopup}
         showPopup={showPopup}
       />
-    </ThemeProvider>
+    </div>
   );
 };
 
 export default LoginPage;
-
-const StyledLink = styled(Link)`
-  margin-top: 9px;
-  text-decoration: none;
-  color: #7f56da;
-`;
