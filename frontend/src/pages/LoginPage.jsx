@@ -119,8 +119,8 @@ const LoginPage = ({ role }) => {
   }, [status, currentRole, navigate, error, response, currentUser]);
 
   return (
-    <div className="flex items-center justify-between max-h-screen max-w-full mx-auto">
-      <div className="flex max-w-full max-h-screen items-center justify-between bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+    <div className="flex items-center justify-center max-h-screen max-w-full mx-auto gap-4 overflow-hidden">
+      <div className="flex max-w-full max-h-screen items-center justify-center bg-white dark:bg-gray-900 shadow-lg rounded-lg">
         <div className="max-w-md mx-auto w-full space-y-8 p-8 bg-white shadow-lg rounded-lg">
           <Typography
             variant="h4"
@@ -251,9 +251,11 @@ const LoginPage = ({ role }) => {
           </form>
         </div>
       </div>
-      <div
-        className="flex hidden md:flex bg-cover bg-center"
-        style={{ backgroundImage: `url(${bgpic})` }}
+      <div className="flex hidden md:flex bg-cover bg-center" />
+      <img
+        src={bgpic}
+        alt="sideimg"
+        className=" flex bg-cover bg-center object-cover hidden md:flex"
       />
       <Backdrop open={guestLoader} className="flex items-center justify-center">
         <CircularProgress color="primary" />

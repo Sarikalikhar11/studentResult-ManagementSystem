@@ -79,9 +79,9 @@ const AdminRegisterPage = () => {
   }, [status, currentUser, currentRole, navigate, error, response]);
 
   return (
-    <div className="flex items-center justify-between max-h-screen max-w-full mx-auto">
+    <div className="flex items-center justify-center max-h-screen max-w-full mx-auto overflow-auto">
       {/* Left side: Form Section */}
-      <div className="lex max-w-full max-h-screen items-center justify-between bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+      <div className="lex max-w-full max-h-screen items-center justify-center bg-white dark:bg-gray-900 shadow-lg rounded-lg">
         <div className="max-w-md mx-auto w-full space-y-8 p-8 bg-white shadow-lg rounded-lg">
           <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">
             Admin Register
@@ -181,11 +181,12 @@ const AdminRegisterPage = () => {
       </div>
 
       {/* Right side: Image Section */}
-      <div
-        className="flex hidden md:flex bg-cover bg-center"
-        style={{ backgroundImage: `url(${bgpic})` }}
+      <div className="hidden flex md:flex bg-cover bg-center" />
+      <img
+        src={bgpic}
+        alt="sideimg"
+        className="h-[750px] flex bg-cover bg-center object-cover hidden md:flex"
       />
-
       {/* Popup Component */}
       <Popup
         message={message}
