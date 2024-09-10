@@ -1,15 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Grid,
-  Paper,
-  Box,
-  Container,
-  CircularProgress,
-  Backdrop,
-} from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { AccountCircle, School, Group } from '@mui/icons-material';
-import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/userRelated/userHandle';
 import Popup from '../components/Popup';
@@ -76,89 +68,66 @@ const ChooseUser = ({ visitor }) => {
   }, [status, currentRole, navigate, currentUser]);
 
   return (
-    <StyledContainer>
-      <Container>
-        <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12} sm={6} md={4}>
-            <div onClick={() => navigateHandler('Admin')}>
-              <StyledPaper elevation={3}>
-                <Box mb={2}>
-                  <AccountCircle fontSize="large" />
-                </Box>
-                <StyledTypography>Admin</StyledTypography>
-                Login as an administrator to access the dashboard to manage app
-                data.
-              </StyledPaper>
-            </div>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper elevation={3}>
-              <div onClick={() => navigateHandler('Student')}>
-                <Box mb={2}>
-                  <School fontSize="large" />
-                </Box>
-                <StyledTypography>Student</StyledTypography>
-                Login as a student to explore course materials and assignments.
-              </div>
-            </StyledPaper>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper elevation={3}>
-              <div onClick={() => navigateHandler('Teacher')}>
-                <Box mb={2}>
-                  <Group fontSize="large" />
-                </Box>
-                <StyledTypography>Teacher</StyledTypography>
-                Login as a teacher to create courses, assignments, and track
-                student progress.
-              </div>
-            </StyledPaper>
-          </Grid>
-        </Grid>
-      </Container>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loader}
-      >
-        <CircularProgress color="inherit" />
-        Please Wait
-      </Backdrop>
+    <div
+      className="flex flex-col items-center justify-center h-screen bg-cover bg-center bg-no-repeat p-8"
+      style={{
+        backgroundImage:
+          'url(https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
+      }}
+    >
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-4xl">
+        <div
+          className="p-6 text-center bg-[#1f1f38] text-white cursor-pointer rounded-md hover:bg-[#745135] transition duration-300"
+          onClick={() => navigateHandler('Admin')}
+        >
+          <div className="mb-4 flex justify-center">
+            <AccountCircle fontSize="large" className="text-white" />
+          </div>
+          <h2 className="mb-2 text-lg font-semibold">Admin</h2>
+          <p className="text-gray-300">
+            Login as an administrator to access the dashboard to manage app
+            data.
+          </p>
+        </div>
+        <div
+          className="p-6 text-center bg-[#1f1f38] text-white cursor-pointer rounded-md hover:bg-[#745135] transition duration-300"
+          onClick={() => navigateHandler('Student')}
+        >
+          <div className="mb-4 flex justify-center">
+            <School fontSize="large" className="text-white" />
+          </div>
+          <h2 className="mb-2 text-lg font-semibold">Student</h2>
+          <p className="text-gray-300">
+            Login as a student to explore course materials and assignments.
+          </p>
+        </div>
+        <div
+          className="p-6 text-center bg-[#1f1f38] text-white cursor-pointer rounded-md hover:bg-[#745135] transition duration-300"
+          onClick={() => navigateHandler('Teacher')}
+        >
+          <div className="mb-4 flex justify-center">
+            <Group fontSize="large" className="text-white" />
+          </div>
+          <h2 className="mb-2 text-lg font-semibold">Teacher</h2>
+          <p className="text-gray-300">
+            Login as a teacher to create courses, assignments, and track student
+            progress.
+          </p>
+        </div>
+      </div>
+      {loader && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <CircularProgress color="inherit" />
+          <span className="text-white ml-4">Please Wait</span>
+        </div>
+      )}
       <Popup
         message={message}
         setShowPopup={setShowPopup}
         showPopup={showPopup}
       />
-    </StyledContainer>
+    </div>
   );
 };
 
 export default ChooseUser;
-
-const StyledContainer = styled.div`
-  background-image: url(https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
-  height: 120vh;
-  width: 106.7%;
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-  background-size: cover; /* Ensures the image covers the entire container */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-`;
-
-const StyledPaper = styled(Paper)`
-  padding: 20px;
-  text-align: center;
-  background-color: #1f1f38;
-  color: rgba(255, 255, 255, 0.6);
-  cursor: pointer;
-
-  &:hover {
-    background-color: #745135;
-    color: white;
-  }
-`;
-
-const StyledTypography = styled.h2`
-  margin-bottom: 10px;
-`;

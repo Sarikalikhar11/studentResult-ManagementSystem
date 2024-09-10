@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  Box,
-  CircularProgress,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import Popup from '../../components/Popup';
 import { BlueButton } from '../../components/buttonStyles';
 import { addStuff } from '../../redux/userRelated/userHandle';
@@ -54,57 +48,49 @@ const StudentComplain = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          flex: '1 1 auto',
-          alignItems: 'center',
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
-        <Box
-          sx={{
-            maxWidth: 550,
-            px: 3,
-            py: '100px',
-            width: '100%',
-          }}
-        >
+      <div className="flex flex-col items-center justify-center flex-1 p-4">
+        <div className="max-w-md w-full px-4 py-12">
           <div>
-            <Stack spacing={1} sx={{ mb: 3 }}>
-              <Typography variant="h4">Complain</Typography>
-            </Stack>
-            <form onSubmit={submitHandler}>
-              <Stack spacing={3}>
-                <TextField
-                  fullWidth
-                  label="Select Date"
-                  type="date"
-                  value={date}
-                  onChange={(event) => setDate(event.target.value)}
-                  required
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-                <TextField
-                  fullWidth
-                  label="Write your complain"
-                  variant="outlined"
-                  value={complaint}
-                  onChange={(event) => {
-                    setComplaint(event.target.value);
-                  }}
-                  required
-                  multiline
-                  maxRows={4}
-                />
-              </Stack>
+            <h1 className="text-3xl font-bold mb-6">Complain</h1>
+            <form onSubmit={submitHandler} className="space-y-6">
+              <div className="space-y-4">
+                <div>
+                  <label
+                    htmlFor="date"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Select Date
+                  </label>
+                  <input
+                    id="date"
+                    type="date"
+                    value={date}
+                    onChange={(event) => setDate(event.target.value)}
+                    required
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="complaint"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Write your complain
+                  </label>
+                  <textarea
+                    id="complaint"
+                    value={complaint}
+                    onChange={(event) => setComplaint(event.target.value)}
+                    required
+                    rows="4"
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                </div>
+              </div>
               <BlueButton
                 fullWidth
                 size="large"
-                sx={{ mt: 3 }}
-                variant="contained"
+                className="mt-4"
                 type="submit"
                 disabled={loader}
               >
@@ -116,8 +102,8 @@ const StudentComplain = () => {
               </BlueButton>
             </form>
           </div>
-        </Box>
-      </Box>
+        </div>
+      </div>
       <Popup
         message={message}
         setShowPopup={setShowPopup}

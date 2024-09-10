@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import { Card, CardContent, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -6,12 +6,15 @@ import { useSelector } from 'react-redux';
 const TeacherProfile = () => {
   const { currentUser, response, error } = useSelector((state) => state.user);
 
-  if (response) { console.log(response) }
-  else if (error) { console.log(error) }
+  if (response) {
+    console.log(response);
+  } else if (error) {
+    console.log(error);
+  }
 
-  const teachSclass = currentUser.teachSclass
-  const teachSubject = currentUser.teachSubject
-  const teachSchool = currentUser.school
+  const teachSclass = currentUser.teachSclass;
+  const teachSubject = currentUser.teachSubject;
+  const teachSchool = currentUser.school;
 
   return (
     <>
@@ -25,10 +28,10 @@ const TeacherProfile = () => {
         </ProfileCardContent>
       </ProfileCard>
     </>
-  )
-}
+  );
+};
 
-export default TeacherProfile
+export default TeacherProfile;
 
 const ProfileCard = styled(Card)`
   margin: 20px;
