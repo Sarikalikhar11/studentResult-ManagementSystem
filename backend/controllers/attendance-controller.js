@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Create a new attendance record
-export const createAttendance = async (req, res) => {
+const createAttendance = async (req, res) => {
     try {
         const attendance = new Attendance(req.body);
         await attendance.save();
@@ -27,7 +27,7 @@ export const createAttendance = async (req, res) => {
 };
 
 // Get attendance records for a class
-export const getClassAttendance = async (req, res) => {
+const getClassAttendance = async (req, res) => {
     try {
         const attendance = await Attendance.find({ sclass: req.params.classId });
         res.status(200).send(attendance);
@@ -37,7 +37,7 @@ export const getClassAttendance = async (req, res) => {
 };
 
 // Get attendance records for a student
-export const getStudentAttendance = async (req, res) => {
+const getStudentAttendance = async (req, res) => {
     try {
         const attendance = await Attendance.find({ "attendance.student": req.params.studentId });
         res.status(200).send(attendance);
@@ -47,7 +47,7 @@ export const getStudentAttendance = async (req, res) => {
 };
 
 // Upload attendance from Excel file
-export const uploadAttendance = async (req, res) => {
+const uploadAttendance = async (req, res) => {
     try {
         const { schoolId, classId } = req.body;
         const file = req.file;
@@ -93,4 +93,6 @@ export const uploadAttendance = async (req, res) => {
 };
 
 // Export multer upload middleware
-export const uploadMiddleware = upload.single('file');
+const uploadMiddleware = upload.single('file');
+
+module.exports = {createAttendance , getClassAttendance, getStudentAttendance, uploadAttendance, uploadMiddleware}
