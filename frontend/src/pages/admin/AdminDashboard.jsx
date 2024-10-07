@@ -17,7 +17,6 @@ import SideBar from './SideBar';
 import AdminProfile from './AdminProfile';
 import AdminHomePage from './AdminHomePage';
 import AddStudent from './studentRelated/AddStudent';
-
 import SeeComplains from './studentRelated/SeeComplain';
 import ShowStudents from './studentRelated/ShowStudent';
 import StudentAttendance from './studentRelated/StudentAttendance';
@@ -41,6 +40,8 @@ import AddClass from './classRelated/AddClass';
 import ClassDetails from './classRelated/ClassDetails';
 import ShowClasses from './classRelated/ShowClasses';
 import AccountMenu from '../../components/AccountMenu';
+import UploadAttendance from './classRelated/UploadAttendance';
+import UploadResult from './classRelated/UploadResult'; // Corrected the import
 
 const AdminDashboard = () => {
   const [open, setOpen] = useState(false);
@@ -81,7 +82,7 @@ const AdminDashboard = () => {
         <Drawer
           variant="permanent"
           open={open}
-          sx={open ? styles.drawerStyled : styles.hideDrawer }
+          sx={open ? styles.drawerStyled : styles.hideDrawer}
         >
           <Toolbar sx={styles.toolBarStyled}>
             <IconButton onClick={toggleDrawer}>
@@ -126,6 +127,14 @@ const AdminDashboard = () => {
             <Route
               path="/Admin/subject/student/attendance/:studentID/:subjectID"
               element={<StudentAttendance situation="Subject" />}
+            />
+            <Route
+              path="/Admin/classRelated/UploadAttendance"
+              element={<UploadAttendance />} // Correct path for UploadAttendance
+            />
+            <Route
+              path="/Admin/classRelated/UploadResult"
+              element={<UploadResult />} // Correct path for UploadResult
             />
             <Route
               path="/Admin/subject/student/marks/:studentID/:subjectID"
