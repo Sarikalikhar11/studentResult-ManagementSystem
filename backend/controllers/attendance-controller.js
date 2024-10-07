@@ -48,61 +48,57 @@ const getStudentAttendance = async (req, res) => {
   }
 };
 
-const uploadMiddleware = (req, res, next) => {
-  // Your middleware logic here
-  next();
-};
+const uploadMiddleware = upload.single('file');
 
-// const uploadAttendance = (req, res) => {
-//   // Your logic to handle attendance upload
-//   res.status(200).send('Attendance uploaded successfully');
-// };
 // Upload attendance from Excel file
 const uploadAttendance = async (req, res) => {
-  try {
-    const { classId } = req.body;
-    const file = req.file;
+    try {
+        const { classId } = req.body;
+        const file = req.file;
 
-    if (!file) {
-      return res.status(400).send('No file uploaded');
+        if (!file) {
+            return res.status(400).send('No file uploaded');
+        }
+
+        const workbook = xlsx.readFile(file.path);
+        const sheetNames = workbook.SheetNames;
+
+        for (const sheetName of sheetNames) {
+            const sheet = workbook.Sheets[sheetName];
+            const data = xlsx.utils.sheet_to_json(sheet, { header: 1 });
+
+            const dates = data[0].slice(1); // Extract dates from the first row
+
+            for (let i = 1; i < data.length; i++) {
+                const row = data[i];
+                const studentName = row[0];
+
+                const student = await Student.findOne({ name: studentName, sclassName: classId });
+                if (!student) {
+                    continue;
+                }
+
+                for (let j = 1; j < row.length; j++) {
+                    const status = row[j];
+                    const date = new Date(dates[j - 1]);
+
+                    const attendanceRecord = {
+                        date: date,
+                        status: status === 'P' ? 'Present' : 'Absent',
+                        subName: null // Assuming subject is not provided in the Excel file
+                    };
+
+                    student.attendance.push(attendanceRecord);
+                }
+
+                await student.save();
+            }
+        }
+
+        res.status(201).send("Attendance records uploaded successfully");
+    } catch (error) {
+        res.status(400).send(error);
     }
-
-    const workbook = xlsx.readFile(file.path);
-    const sheetName = workbook.SheetNames[0];
-    const sheet = workbook.Sheets[sheetName];
-    const data = xlsx.utils.sheet_to_json(sheet, { header: 1 });
-
-    const dates = data[0].slice(1); // Extract dates from the first row
-    const attendanceRecords = [];
-
-    for (let i = 1; i < data.length; i++) {
-      const row = data[i];
-      const studentName = row[0];
-
-      for (let j = 1; j < row.length; j++) {
-        const status = row[j];
-        const date = dates[j - 1];
-
-        const attendanceRecord = {
-          date: new Date(date),
-          sclass: classId,
-          attendance: [
-            {
-              student: studentName,
-              status: status === 'P' ? 'Present' : 'Absent',
-            },
-          ],
-        };
-
-        attendanceRecords.push(attendanceRecord);
-      }
-    }
-
-    await Attendance.insertMany(attendanceRecords);
-    res.status(201).send('Attendance records uploaded successfully');
-  } catch (error) {
-    res.status(400).send(error);
-  }
 };
 
 // Export multer upload middleware
