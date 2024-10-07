@@ -23,6 +23,8 @@ import TeacherHomePage from './TeacherHomePage';
 import TeacherProfile from './TeacherProfile';
 import TeacherViewStudent from './TeacherViewStudent';
 import StudentExamMarks from '../admin/studentRelated/StudentExamMarks';
+import UploadAttendance from './UploadAttendance';
+import UploadResult from './UploadResult';
 
 const TeacherDashboard = () => {
   const [open, setOpen] = useState(true);
@@ -35,7 +37,7 @@ const TeacherDashboard = () => {
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar open={open} position="absolute">
-          <Toolbar sx={{ pr: '24px' }}>
+          <Toolbar sx={{ pr: '24px' }} className="bg-[#df5f5a]">
             <IconButton
               edge="start"
               color="inherit"
@@ -99,6 +101,11 @@ const TeacherDashboard = () => {
               path="/Teacher/class/student/marks/:studentID/:subjectID"
               element={<StudentExamMarks situation="Subject" />}
             />
+            <Route
+              path="/Teacher/UploadAttendance"
+              element={<UploadAttendance />}
+            />
+            <Route path="/Teacher/UploadResult" element={<UploadResult />} />
 
             <Route path="/logout" element={<Logout />} />
           </Routes>

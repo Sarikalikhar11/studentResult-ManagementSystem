@@ -11,6 +11,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URL = process.env.MONGO_URL;
 
+let attendanceRecords = [];
+
 // Check if MONGO_URL is set correctly
 if (!MONGO_URL) {
   console.error('MONGO_URL is not defined in your .env file');

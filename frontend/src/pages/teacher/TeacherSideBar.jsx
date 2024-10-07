@@ -13,6 +13,8 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import AnnouncementOutlinedIcon from '@mui/icons-material/AnnouncementOutlined';
 import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
+import { FaFileUpload } from 'react-icons/fa';
+import { FaUpload } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
 const TeacherSideBar = () => {
@@ -46,6 +48,30 @@ const TeacherSideBar = () => {
             />
           </ListItemIcon>
           <ListItemText primary={`Class ${sclassName.sclassName}`} />
+        </ListItemButton>
+        <ListItemButton component={Link} to="/Teacher/UploadAttendance">
+          <ListItemIcon>
+            <FaUpload
+              color={
+                location.pathname.includes('/Teacher/UploadAttendance')
+                  ? 'primary'
+                  : 'inherit'
+              }
+            />
+          </ListItemIcon>
+          <ListItemText primary="Upload Attendance" />
+        </ListItemButton>
+        <ListItemButton component={Link} to="/Teacher/UploadResult">
+          <ListItemIcon>
+            <FaFileUpload
+              color={
+                location.pathname.startsWith('/Teacher/UploadResult')
+                  ? 'primary'
+                  : 'inherit'
+              }
+            />
+          </ListItemIcon>
+          <ListItemText primary="UploadResult" />
         </ListItemButton>
         <ListItemButton component={Link} to="/Teacher/complain">
           <ListItemIcon>

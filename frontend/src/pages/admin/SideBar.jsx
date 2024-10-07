@@ -17,6 +17,8 @@ import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
 import ReportIcon from '@mui/icons-material/Report';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { FaUpload } from 'react-icons/fa';
+import { FaFileUpload } from 'react-icons/fa';
 
 const SideBar = () => {
   const location = useLocation();
@@ -83,6 +85,36 @@ const SideBar = () => {
             />
           </ListItemIcon>
           <ListItemText primary="Students" />
+        </ListItemButton>
+        <ListItemButton
+          component={Link}
+          to="/Admin/classRelated/UploadAttendance"
+        >
+          <ListItemIcon>
+            <FaUpload
+              color={
+                location.pathname.startsWith(
+                  '/Admin/classRelated/UploadAttendance'
+                )
+                  ? 'primary'
+                  : 'inherit'
+              }
+            />
+          </ListItemIcon>
+          <ListItemText primary="Upload Attendance" />
+        </ListItemButton>
+
+        <ListItemButton component={Link} to="/Admin/classRelated/UploadResult">
+          <ListItemIcon>
+            <FaFileUpload
+              color={
+                location.pathname.startsWith('/Admin/classRelated/UploadResult')
+                  ? 'primary'
+                  : 'inherit'
+              }
+            />
+          </ListItemIcon>
+          <ListItemText primary="Upload Result" />
         </ListItemButton>
         <ListItemButton component={Link} to="/Admin/notices">
           <ListItemIcon>
